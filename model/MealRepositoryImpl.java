@@ -21,7 +21,7 @@ public class MealRepositoryImpl implements MealRepository {
     }
 
     @Override
-    public Meal getById(int mealId) {
+    public Meal getById(Integer mealId) {
         List<Meal> meals = readAllMeal();
         for (Meal meal : meals) {
             if (meal.getMealId() == mealId) {
@@ -59,7 +59,7 @@ public class MealRepositoryImpl implements MealRepository {
     }
 
     @Override
-    public void delete(int mealId) {
+    public void delete(Integer mealId) {
         List<Meal> meals = readAllMeal();
         meals.removeIf(e -> { return e.getMealId() == mealId; });
         writeAllMeal(meals);

@@ -2,7 +2,7 @@ package model;
 
 import java.util.List;
 
-public class UserRepositoryImpl implements Repository<User> {
+public class UserRepositoryImpl implements Repository<String, User> {
 
     @Override
     public List<User> getAll() {
@@ -11,7 +11,7 @@ public class UserRepositoryImpl implements Repository<User> {
     }
 
     @Override
-    public User getById(int id) {
+    public User getById(String id) {
         // TODO Auto-generated method stub
         return null;
     }
@@ -29,7 +29,7 @@ public class UserRepositoryImpl implements Repository<User> {
     }
 
     @Override
-    public void delete(int id) {
+    public void delete(String id) {
         // TODO Auto-generated method stub
         
     }
