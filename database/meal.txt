@@ -1,0 +1,4 @@
+!! FORMAT: mealId (PK), userId (FK), ImagePath, Name, FoodGroup, Date, Day, DrinkName
+1,willi69,./image/nasilemak.png,Nasi Lemak,Protein,9/6/2021,Breakfast,Skyjuice
+2,arzmin,./image/chickenchop.jpeg,Chicken Chop,Protein,9/6/2021,Lunch,Latte
+3,paul,./image/btsmeal.jpeg,Chicken Nugget,Protein,10/6/2021,Dinner,Pepsi
