@@ -8,7 +8,7 @@ public class LoginPresenter implements Subscriber, LoginViewListener {
     private String password;
 
     @Override
-    public void onLoginButtonPressed(String username, String password) {
+    public void onLoginButtonPressed() {
         //TODO Auto-generated method stub
     }
 

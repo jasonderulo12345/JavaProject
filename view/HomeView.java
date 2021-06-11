@@ -6,7 +6,7 @@ import javax.swing.*;
 import java.util.ArrayList;
 import java.util.List;
 
-public class HomeView {
+public class HomeView extends JFrame {
     private HomeViewListener homeViewListener;
 
     private JLabel title;

@@ -92,7 +92,7 @@ public class LoginView extends JFrame {
         setVisible(true);
     }
 
-    public addListener(LoginViewListener loginViewListener) {
+    public void addListener(LoginViewListener loginViewListener) {
         this.loginViewListener = loginViewListener;
     }
 }
