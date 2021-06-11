@@ -6,17 +6,17 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class HomeView {
-    private List<HomeViewListener> listeners;
+    private HomeViewListener homeViewListener;
     
     public HomeView() {
-        this.listeners = new ArrayList<>();
+
     }
 
     public void initUI() {
 
     }
 
-    public void addListener(HomeViewListener listener) {
-        listeners.add(listener);
+    public void addListener(HomeViewListener homeViewListener) {
+        this.homeViewListener = homeViewListener;
     }
 }
