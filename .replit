@@ -1,2 +1,2 @@
 language = "java_swing"
-run = ""
+run = "find . -type f -name '*.class' -delete && javac Main.java && java Main && find . -type f -name '*.class' -delete"
