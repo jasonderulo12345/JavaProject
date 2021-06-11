@@ -12,6 +12,10 @@ public class HomeView {
         this.listeners = new ArrayList<>();
     }
 
+    public void initUI() {
+
+    }
+
     public void addListener(HomeViewListener listener) {
         listeners.add(listener);
     }
