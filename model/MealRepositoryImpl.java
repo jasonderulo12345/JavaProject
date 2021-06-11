@@ -80,43 +80,17 @@ public class MealRepositoryImpl implements MealRepository {
     }
 
     @Override
-    public List<Meal> getByDay(String userId, Day day) {
-        List<Meal> userMeals = getAllByUserId(userId);
-        List<Meal> filteredMeals = new ArrayList<>();
+    public List<Meal> getByFilter(Meal filterMeal) {
+        List<Meal> filteredMeals = readAllMeal();
 
-        for (Meal meal : userMeals) {
-            if (meal.getDay() == day) {
-                filteredMeals.add(meal);
-            }
-        }
-
-        return filteredMeals;
-    }
-
-    @Override
-    public List<Meal> getByName(String userId, String name) {
-        List<Meal> userMeals = getAllByUserId(userId);
-        List<Meal> filteredMeals = new ArrayList<>();
-
-        for (Meal meal : userMeals) {
-            if (meal.getName().equalsIgnoreCase(name)) {
-                filteredMeals.add(meal);
-            }
-        }
-
-        return filteredMeals;
-    }
-
-    @Override
-    public List<Meal> getByDayAndName(String userId, Day day, String name) {
-        List<Meal> userMeals = getAllByUserId(userId);
-        List<Meal> filteredMeals = new ArrayList<>();
-
-        for (Meal meal : userMeals) {
-            if (meal.getDay() == day && meal.getName().equalsIgnoreCase(name)) {
-                filteredMeals.add(meal);
-            }
-        }
+        // Filter one by one with criteria given in argument
+        // TODO: Need null checking
+        filteredMeals.removeIf(e -> e.getMealId() != filterMeal.getMealId());
+        filteredMeals.removeIf(e -> !e.getName().equalsIgnoreCase(filterMeal.getName()));
+        filteredMeals.removeIf(e -> e.getFoodGroup() != filterMeal.getFoodGroup());
+        filteredMeals.removeIf(e -> !e.getDate().equalsIgnoreCase(filterMeal.getDate()));
+        filteredMeals.removeIf(e -> e.getDay() != filterMeal.getDay());
+        filteredMeals.removeIf(e -> !e.getDrink().equalsIgnoreCase(filterMeal.getDrink()));
 
         return filteredMeals;
     }
