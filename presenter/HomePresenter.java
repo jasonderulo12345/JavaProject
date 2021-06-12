@@ -32,7 +32,7 @@ public class HomePresenter implements Subscriber, HomeViewListener {
 
     @Override
     public void onAddMealPressed() {
-        eventBus.dispatch(new ViewMealEnterEvent(Mode.ADD, -1));
+        eventBus.dispatch(new ViewMealEnterEvent(Mode.ADD, -1, currentUserId));
     }
 
     @Override
@@ -48,7 +48,7 @@ public class HomePresenter implements Subscriber, HomeViewListener {
         String selectedMealIdString = (String)homeView.mealTable.getModel().getValueAt(selectedRow, 0);
         int selectedMealId = Integer.parseInt(selectedMealIdString);
 
-        eventBus.dispatch(new ViewMealEnterEvent(Mode.EDIT, selectedMealId));
+        eventBus.dispatch(new ViewMealEnterEvent(Mode.EDIT, selectedMealId, currentUserId));
     }
 
     @Override
@@ -64,7 +64,7 @@ public class HomePresenter implements Subscriber, HomeViewListener {
         String selectedMealIdString = (String)homeView.mealTable.getModel().getValueAt(selectedRow, 0);
         int selectedMealId = Integer.parseInt(selectedMealIdString);
 
-        eventBus.dispatch(new ViewMealEnterEvent(Mode.VIEW, selectedMealId));
+        eventBus.dispatch(new ViewMealEnterEvent(Mode.VIEW, selectedMealId, currentUserId));
     }
 
     @Override

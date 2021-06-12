@@ -10,10 +10,12 @@ public class ViewMealEnterEvent implements Event {
 
     private Mode mode;
     private int mealId;
+    private String userId;
 
-    public ViewMealEnterEvent(Mode mode, int mealId) {
+    public ViewMealEnterEvent(Mode mode, int mealId, String userId) {
         this.mode = mode;
-        this.mealId = mealId;   
+        this.mealId = mealId;
+        this.userId = userId;
     }
 
     public Mode getMode() {
@@ -22,6 +24,10 @@ public class ViewMealEnterEvent implements Event {
 
     public int getMealId() {
         return mealId;
+    }
+
+    public String getUserId() {
+        return userId;
     }
 
     @Override

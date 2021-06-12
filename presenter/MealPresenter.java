@@ -11,13 +11,14 @@ import view.MealViewListener;
 
 public class MealPresenter implements Subscriber, MealViewListener {
     private int currentMealId;
-
+    private String currentUserId;
     private Repository<Integer, Meal> mealRepository;
     private MealView mealView;
     private EventBus eventBus;
 
     public MealPresenter(Repository<Integer, Meal> mealRepository, EventBus eventBus) {
         this.currentMealId = -1; // Assuming ADD mode
+        this.currentUserId = "";
         this.mealRepository = mealRepository;
 
         this.eventBus = eventBus;
@@ -39,6 +40,7 @@ public class MealPresenter implements Subscriber, MealViewListener {
             mealRepository.update(meal);
         }
         else {
+            meal.setUserId(currentUserId);
             mealRepository.add(meal);
         }
 
@@ -74,6 +76,8 @@ public class MealPresenter implements Subscriber, MealViewListener {
         mealView.addListener(this);
         mealView.initUI();
         mealView.setAlwaysOnTop(true);
+
+        currentUserId = viewMealEnterEvent.getUserId();
 
         if (viewMealEnterEvent.getMode() == Mode.ADD) {
             currentMealId = -1;
