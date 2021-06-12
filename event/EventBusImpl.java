@@ -7,7 +7,7 @@ public class EventBusImpl implements EventBus {
     private static final EventBusImpl eventBusImpl = new EventBusImpl();
     private List<Subscriber> subscribers;
 
-    private EventBusImpl() {
+    public EventBusImpl() {
         subscribers = new ArrayList<>();
     }
 

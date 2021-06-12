@@ -10,8 +10,8 @@ public class LoginView extends JFrame {
     private JLabel usernameLabel;
     private JLabel passLabel;
     private JLabel loginLabel;
-    private JTextField username;
-    private JTextField password;
+    public JTextField userId;
+    public JPasswordField password;
     private JButton login;
       
     public LoginView() {
@@ -26,8 +26,8 @@ public class LoginView extends JFrame {
         passLabel = new JLabel();
 
         // TextField
-        username = new JTextField();
-        password = new JTextField();
+        userId = new JTextField();
+        password = new JPasswordField();
 
         // Button
         login = new JButton();
@@ -36,7 +36,7 @@ public class LoginView extends JFrame {
 
         // Set Text (Label)
         loginLabel.setText("Login to Meal Diary");
-        usernameLabel.setText("Username");
+        usernameLabel.setText("User ID");
         passLabel.setText("Password");
 
         // Login Button
@@ -58,7 +58,7 @@ public class LoginView extends JFrame {
                 .addGroup(layout.createSequentialGroup()
                     .addContainerGap()
                     .addGroup(layout.createParallelGroup(GroupLayout.Alignment.LEADING)
-                        .addComponent(username)
+                        .addComponent(userId)
                         .addGroup(layout.createSequentialGroup()
                             .addGroup(layout.createParallelGroup(GroupLayout.Alignment.LEADING)
                                 .addComponent(loginLabel, GroupLayout.PREFERRED_SIZE, 370, GroupLayout.PREFERRED_SIZE)
@@ -81,7 +81,7 @@ public class LoginView extends JFrame {
                     .addGap(90, 90, 90)
                     .addComponent(usernameLabel)
                     .addPreferredGap(LayoutStyle.ComponentPlacement.RELATED)
-                    .addComponent(username, GroupLayout.PREFERRED_SIZE, 35, GroupLayout.PREFERRED_SIZE)
+                    .addComponent(userId, GroupLayout.PREFERRED_SIZE, 35, GroupLayout.PREFERRED_SIZE)
                     .addPreferredGap(LayoutStyle.ComponentPlacement.RELATED)
                     .addComponent(passLabel)
                     .addPreferredGap(LayoutStyle.ComponentPlacement.RELATED)
