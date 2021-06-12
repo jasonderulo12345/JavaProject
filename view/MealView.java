@@ -72,7 +72,7 @@ public class MealView extends JFrame {
         save.setText("Save");
         save.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent evt) {
-                // Direct call to listener
+                mealViewListener.onSaveButtonPressed();
             }
         });
 
