@@ -2,8 +2,9 @@ package view;
 
 import java.awt.event.*;
 import java.awt.Font;
+import java.awt.Dialog.ModalityType;
+
 import javax.swing.*;
-import javax.swing.table.DefaultTableModel;
 
 public class HomeView extends JFrame {
     private HomeViewListener homeViewListener;
@@ -15,13 +16,12 @@ public class HomeView extends JFrame {
     private JButton logout;
     private JButton viewMeal;
     private JTextField searchBar;
-    private JComboBox<String> filterBox;
+    private JButton filter;
     private JScrollPane jScrollPane1; //idk apa ni
     public JTable mealTable;
+    private FilterDialog filterDialog;
 
-    public HomeView() {
-
-    }
+    public HomeView() { }
 
     public void initUI() {
         //Label
@@ -34,8 +34,8 @@ public class HomeView extends JFrame {
         editMeal = new JButton();
         viewMeal = new JButton();
 
-        //ComboBox
-        filterBox = new JComboBox<>();
+        //Filter
+        filter = new JButton();
 
         //TextField
         searchBar = new JTextField();
@@ -53,8 +53,14 @@ public class HomeView extends JFrame {
         title.setHorizontalAlignment(SwingConstants.CENTER);
         title.setText("Home Menu");
 
-        //FilterBox
-        filterBox.setModel(new DefaultComboBoxModel<>(new String[] { "Filter", "Item 2", "Item 3", "Item 4" }));
+        //Filter
+        filter.setText("Filter");
+        filter.addActionListener(new ActionListener(){
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                showFilterDialog();
+            }
+        });
 
         //Set text
         searchBar.setText("SearchBar");
@@ -111,7 +117,7 @@ public class HomeView extends JFrame {
                         .addGroup(layout.createParallelGroup(GroupLayout.Alignment.TRAILING, false)
                             .addComponent(title, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                             .addGroup(layout.createSequentialGroup()
-                                .addComponent(filterBox, GroupLayout.PREFERRED_SIZE, 72, GroupLayout.PREFERRED_SIZE)
+                                .addComponent(filter, GroupLayout.PREFERRED_SIZE, 72, GroupLayout.PREFERRED_SIZE)
                                 .addPreferredGap(LayoutStyle.ComponentPlacement.RELATED)
                                 .addComponent(searchBar, GroupLayout.PREFERRED_SIZE, 435, GroupLayout.PREFERRED_SIZE)))
                         .addComponent(jScrollPane1, GroupLayout.PREFERRED_SIZE, 512, GroupLayout.PREFERRED_SIZE))
@@ -133,7 +139,7 @@ public class HomeView extends JFrame {
                     .addComponent(logout, GroupLayout.DEFAULT_SIZE, 32, Short.MAX_VALUE))
                 .addPreferredGap(LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(GroupLayout.Alignment.LEADING, false)
-                    .addComponent(filterBox, GroupLayout.Alignment.TRAILING)
+                    .addComponent(filter, GroupLayout.Alignment.TRAILING)
                     .addComponent(searchBar, GroupLayout.Alignment.TRAILING)
                     .addComponent(addMeal, GroupLayout.Alignment.TRAILING, GroupLayout.DEFAULT_SIZE, 35, Short.MAX_VALUE))
                 .addPreferredGap(LayoutStyle.ComponentPlacement.UNRELATED)
@@ -156,7 +162,8 @@ public class HomeView extends JFrame {
     
     // Filter Dialog UI here bestie
     public void showFilterDialog() {
-        
+        filterDialog = new FilterDialog();
+        filterDialog.initUI();
     }
 
     public void addListener(HomeViewListener homeViewListener) {
