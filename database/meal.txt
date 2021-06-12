@@ -1,3 +1,4 @@
 1,willi69,./image/nasilemak.png,Nasi Lemak,PROTEIN,9/6/2021,BREAKFAST,Skyjuice
 2,arzmin,./image/chickenchop.jpeg,Chicken Chop,PROTEIN,9/6/2021,LUNCH,Latte
-3,paul,./image/btsmeal.jpeg,Chicken Nugget,PROTEIN,10/6/2021,DINNER,Pepsi
+3,arzmin,./image/salad.png,Salad,VEGETABLE,9/6/2021,DINNER,Americano
+4,paul,./image/btsmeal.jpeg,Chicken Nugget,PROTEIN,10/6/2021,DINNER,Pepsi
