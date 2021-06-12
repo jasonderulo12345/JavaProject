@@ -91,6 +91,9 @@ public class LoginView extends JFrame {
                     .addContainerGap(16, Short.MAX_VALUE))
         );
 
+        // Enable press enter to login
+        getRootPane().setDefaultButton(login);
+
         pack();
         setVisible(true);
     }
