@@ -3,6 +3,8 @@ package view;
 import java.awt.event.*;
 import java.awt.Font;
 import javax.swing.*;
+import javax.swing.table.DefaultTableModel;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -10,136 +12,137 @@ public class HomeView extends JFrame {
     private HomeViewListener homeViewListener;
 
     private JLabel title;
-    private JButton AddMeal;
-    private JButton DeleteMeal;
-    private JButton EditMeal;
-    private JButton Logout;
-    private JButton ViewMeal;
-    private JTextField SearchBar;
-    private JComboBox<String> FilterBox;
+    private JButton addMeal;
+    private JButton deleteMeal;
+    private JButton editMeal;
+    private JButton logout;
+    private JButton viewMeal;
+    private JTextField searchBar;
+    private JComboBox<String> filterBox;
     private JScrollPane jScrollPane1; //idk apa ni
-    private JTable MealTable;
+    private JTable mealTable;
 
     public HomeView() {
 
     }
 
     public void initUI() {
-      //Label
-      title = new JLabel();
+        //Label
+        title = new JLabel();
 
-      //Button
-      Logout = new JButton();
-      AddMeal = new JButton();
-      DeleteMeal = new JButton();
-      EditMeal = new JButton();
-      ViewMeal = new JButton();
+        //Button
+        logout = new JButton();
+        addMeal = new JButton();
+        deleteMeal = new JButton();
+        editMeal = new JButton();
+        viewMeal = new JButton();
 
-      //ComboBox
-      FilterBox = new JComboBox<>();
+        //ComboBox
+        filterBox = new JComboBox<>();
 
-      //TextField
-      SearchBar = new JTextField();
+        //TextField
+        searchBar = new JTextField();
 
-      //ScrollPanel
-      jScrollPane1 = new JScrollPane();
+        //ScrollPanel
+        jScrollPane1 = new JScrollPane();
 
-      //Table
-      MealTable = new JTable();
+        //Table
+        mealTable = new JTable();
 
-      setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
 
-      //Title
-      title.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
-      title.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-      title.setText("Home Menu");
+        //Title
+        title.setFont(new Font("Tahoma", 0, 14)); // NOI18N
+        title.setHorizontalAlignment(SwingConstants.CENTER);
+        title.setText("Home Menu");
 
-      //FilterBox
-      FilterBox.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Filter", "Item 2", "Item 3", "Item 4" }));
+        //FilterBox
+        filterBox.setModel(new DefaultComboBoxModel<>(new String[] { "Filter", "Item 2", "Item 3", "Item 4" }));
 
-      //Set text
-      SearchBar.setText("SearchBar");
-      Logout.setText("Logout");
-      AddMeal.setText("Add Meal");
-      DeleteMeal.setText("Delete Meal");
-      EditMeal.setText("Edit Meal");
-      ViewMeal.setText("View Meal");
+        //Set text
+        searchBar.setText("SearchBar");
+        logout.setText("Logout");
+        addMeal.setText("Add Meal");
+        deleteMeal.setText("Delete Meal");
+        editMeal.setText("Edit Meal");
+        viewMeal.setText("View Meal");
 
-      //Meal Table
-      MealTable.setModel(new javax.swing.table.DefaultTableModel(
-            new Object [][] {
-                {"Breakfast", "Coomer", "1", "test"},
-                {"Breakfast", "Cooming", "2", "69"},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null}
-            },
-            new String [] {
-                "Meal Type", "Meal Name", "Day", "Time"
-            }
-        ) {
-            Class[] types = new Class [] {
-                java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class
-            };
+        //Meal Table
+        mealTable.setModel(new DefaultTableModel(
+                new Object [][] {
+                    {"Breakfast", "Coomer", "1", "test"},
+                    {"Breakfast", "Cooming", "2", "69"},
+                    {null, null, null, null},
+                    {null, null, null, null},
+                    {null, null, null, null},
+                    {null, null, null, null}
+                },
+                new String [] {
+                    "Meal Type", "Meal Name", "Day", "Time"
+                }
+            ) {
+                Class<?>[] types = new Class<?>[] {
+                    String.class, String.class, String.class, String.class
+                };
 
-            public Class getColumnClass(int columnIndex) {
-                return types [columnIndex];
-            }
-        });
-        jScrollPane1.setViewportView(MealTable);
+                public Class<?> getColumnClass(int columnIndex) {
+                    return types [columnIndex];
+                }
+            });
+            jScrollPane1.setViewportView(mealTable);
 
-      //UI Swing Stuff
-      javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
-        getContentPane().setLayout(layout);
-        layout.setHorizontalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addContainerGap()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                        .addComponent(title, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addGroup(layout.createSequentialGroup()
-                            .addComponent(FilterBox, javax.swing.GroupLayout.PREFERRED_SIZE, 72, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                            .addComponent(SearchBar, javax.swing.GroupLayout.PREFERRED_SIZE, 435, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                    .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 512, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(AddMeal, javax.swing.GroupLayout.DEFAULT_SIZE, 97, Short.MAX_VALUE)
-                    .addComponent(Logout, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(DeleteMeal, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(EditMeal, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(ViewMeal, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                .addGap(17, 17, 17))
+        //UI Swing Stuff
+        GroupLayout layout = new GroupLayout(getContentPane());
+            getContentPane().setLayout(layout);
+            layout.setHorizontalGroup(
+                layout.createParallelGroup(GroupLayout.Alignment.LEADING)
+                .addGroup(layout.createSequentialGroup()
+                    .addContainerGap()
+                    .addGroup(layout.createParallelGroup(GroupLayout.Alignment.TRAILING)
+                        .addGroup(layout.createParallelGroup(GroupLayout.Alignment.TRAILING, false)
+                            .addComponent(title, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(filterBox, GroupLayout.PREFERRED_SIZE, 72, GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(searchBar, GroupLayout.PREFERRED_SIZE, 435, GroupLayout.PREFERRED_SIZE)))
+                        .addComponent(jScrollPane1, GroupLayout.PREFERRED_SIZE, 512, GroupLayout.PREFERRED_SIZE))
+                    .addPreferredGap(LayoutStyle.ComponentPlacement.RELATED)
+                    .addGroup(layout.createParallelGroup(GroupLayout.Alignment.LEADING)
+                        .addComponent(addMeal, GroupLayout.DEFAULT_SIZE, 97, Short.MAX_VALUE)
+                        .addComponent(logout, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(deleteMeal, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(editMeal, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(viewMeal, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addGap(17, 17, 17))
         );
         layout.setVerticalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            layout.createParallelGroup(GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(title, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(Logout, javax.swing.GroupLayout.DEFAULT_SIZE, 32, Short.MAX_VALUE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(FilterBox, javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(SearchBar, javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(AddMeal, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 35, Short.MAX_VALUE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(layout.createParallelGroup(GroupLayout.Alignment.BASELINE)
+                    .addComponent(title, GroupLayout.PREFERRED_SIZE, 32, GroupLayout.PREFERRED_SIZE)
+                    .addComponent(logout, GroupLayout.DEFAULT_SIZE, 32, Short.MAX_VALUE))
+                .addPreferredGap(LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(layout.createParallelGroup(GroupLayout.Alignment.LEADING, false)
+                    .addComponent(filterBox, GroupLayout.Alignment.TRAILING)
+                    .addComponent(searchBar, GroupLayout.Alignment.TRAILING)
+                    .addComponent(addMeal, GroupLayout.Alignment.TRAILING, GroupLayout.DEFAULT_SIZE, 35, Short.MAX_VALUE))
+                .addPreferredGap(LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGroup(layout.createParallelGroup(GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
-                        .addComponent(DeleteMeal, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(EditMeal, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(ViewMeal, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(deleteMeal, GroupLayout.PREFERRED_SIZE, 35, GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(editMeal, GroupLayout.PREFERRED_SIZE, 35, GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(viewMeal, GroupLayout.PREFERRED_SIZE, 35, GroupLayout.PREFERRED_SIZE)
                         .addGap(230, 230, 230))
                     .addGroup(layout.createSequentialGroup()
-                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
+                        .addComponent(jScrollPane1, GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
                         .addContainerGap())))
         );
 
         pack();
+        setVisible(true);
     }
     
     // Filter Dialog UI here bestie

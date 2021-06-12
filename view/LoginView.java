@@ -19,13 +19,16 @@ public class LoginView extends JFrame {
     }
 
     public void initUI() {
+
         // Label
         loginLabel = new JLabel();
         usernameLabel = new JLabel();
         passLabel = new JLabel();
+
         // TextField
         username = new JTextField();
         password = new JTextField();
+
         // Button
         login = new JButton();
 
@@ -51,7 +54,7 @@ public class LoginView extends JFrame {
         getContentPane().setLayout(layout);
 
         layout.setHorizontalGroup(
-                layout.createParallelGroup(GroupLayout.Alignment.LEADING)
+            layout.createParallelGroup(GroupLayout.Alignment.LEADING)
                 .addGroup(layout.createSequentialGroup()
                     .addContainerGap()
                     .addGroup(layout.createParallelGroup(GroupLayout.Alignment.LEADING)

@@ -6,7 +6,7 @@ import view.HomeViewListener;
 import view.HomeView;
 
 // Setiap presenter mesti ada view dgn repository aka model
-public class HomePresenter implements HomeViewListener, Subscriber {
+public class HomePresenter implements Subscriber, HomeViewListener {
     private String currentUserId;
     private EventBus eventBus;
     private HomeView homeView;
