@@ -9,7 +9,7 @@ public class MealView extends JFrame {
 
     //Variable Declaration
     private JLabel title;
-    private JLabel image;
+    public JLabel image;
     private JLabel nameLabel;
     private JLabel foodgroupLabel;
     private JLabel dateLabel;

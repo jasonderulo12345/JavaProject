@@ -1,5 +1,7 @@
 package presenter;
 
+import javax.swing.ImageIcon;
+
 import event.*;
 import event.ViewMealEnterEvent.Mode;
 import model.Repository;
@@ -88,6 +90,7 @@ public class MealPresenter implements Subscriber, MealViewListener {
         currentMealId = viewMealEnterEvent.getMealId();
 
         Meal meal = mealRepository.getById(currentMealId);
+        mealView.image.setIcon(new ImageIcon(meal.getImagePath()));
         mealView.date.setText(meal.getDate());
         mealView.day.setText(meal.getDay().toString()); // Drop down?
         mealView.drink.setText(meal.getDrink());
@@ -103,7 +106,7 @@ public class MealPresenter implements Subscriber, MealViewListener {
             mealView.name.setEditable(false);
 
             // Disable buttons
-            mealView.name.setEnabled(false);
+            mealView.delete.setEnabled(false);
             mealView.save.setEnabled(false);
         }
     }
