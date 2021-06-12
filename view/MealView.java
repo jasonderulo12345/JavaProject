@@ -5,6 +5,8 @@ import java.awt.event.*;
 import java.awt.Font;
 
 public class MealView extends JFrame {
+    private MealViewListener mealViewListener;
+
     //Variable Declaration
     private JLabel title;
     private JLabel image;
@@ -13,18 +15,14 @@ public class MealView extends JFrame {
     private JLabel dateLabel;
     private JLabel dayLabel;
     private JLabel drinkLabel;
-    private JTextField name;
-    private JTextField foodGroup;
-    private JTextField date;
-    private JTextField day;
-    private JTextField drink;    
-    private JButton save;
+    public JTextField name;
+    public JTextField foodGroup;
+    public JTextField date;
+    public JTextField day;
+    public JTextField drink;    
+    public JButton save;
     private JButton cancel;
-    private JButton delete;
-
-    public MealView() {
-
-    }
+    public JButton delete;
 
     public void initUI() {
         //Label
@@ -35,18 +33,20 @@ public class MealView extends JFrame {
         dayLabel = new JLabel();
         drinkLabel = new JLabel();
         image = new JLabel();
+
         //TextField
         name = new JTextField();
         foodGroup = new JTextField();
         date = new JTextField();
         day = new JTextField();
         drink = new JTextField();
+
         //Button
         save = new JButton();
         cancel = new JButton();
         delete = new JButton();
 
-        setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
+        setDefaultCloseOperation(WindowConstants.DISPOSE_ON_CLOSE);
 
         //Title
         title.setFont(new Font("Tahoma", 0, 24)); // NOI18N 
@@ -70,14 +70,19 @@ public class MealView extends JFrame {
 
         //Save
         save.setText("Save");
-            save.addActionListener(new ActionListener() {
-                public void actionPerformed(ActionEvent evt) {
-                    // Direct call to listener
-                }
+        save.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent evt) {
+                // Direct call to listener
+            }
         });
 
         //Cancel
         cancel.setText("Cancel");
+        cancel.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent evt) {
+                mealViewListener.onCancelButtonPressed();
+            }
+        });
 
         //Image
         image.setIcon(new ImageIcon("image path")); 
@@ -159,5 +164,9 @@ public class MealView extends JFrame {
 
         pack();
         setVisible(true);
+    }
+
+    public void addListener(MealViewListener mealViewListener) {
+        this.mealViewListener = mealViewListener;
     }
 }
