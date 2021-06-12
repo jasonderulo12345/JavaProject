@@ -1,7 +1,7 @@
 package view;
 import javax.swing.*;
 
-public class FilterDialog extends JFrame {
+public class FilterDialog extends JDialog {
     //Variable Declaration
     private JLabel nameLabel;
     private JLabel foodgroupLabel;
@@ -16,6 +16,7 @@ public class FilterDialog extends JFrame {
     private JComboBox<String> dayComboBox;
 
     public void initUI() {
+
         //Label
         nameLabel = new JLabel();
         foodgroupLabel = new JLabel();
@@ -46,8 +47,8 @@ public class FilterDialog extends JFrame {
         Search.setText("Search");
 
         //ComboBox
-        foodgroupComboBox.setModel(new DefaultComboBoxModel<>(new String[] { "Fruit", "Item 2", "Item 3", "Item 4" }));
-        dayComboBox.setModel(new DefaultComboBoxModel<>(new String[] { "Breakfast", "Item 2", "Item 3", "Item 4" }));
+        foodgroupComboBox.setModel(new DefaultComboBoxModel<>(new String[] {"FRUIT", "VEGETABLE", "GRAIN", "PROTEIN", "DAIRY"}));
+        dayComboBox.setModel(new DefaultComboBoxModel<>(new String[] {"BREAKFAST", "LUNCH", "DINNER"}));
 
         //Swing UI Stuff
         GroupLayout layout = new GroupLayout(getContentPane());
@@ -106,5 +107,8 @@ public class FilterDialog extends JFrame {
         );
 
         pack();
+        setResizable(false);
+        setModalityType(ModalityType.APPLICATION_MODAL);
+        setVisible(true);
     }
 }

@@ -16,9 +16,9 @@ public class MealView extends JFrame {
     private JLabel dayLabel;
     private JLabel drinkLabel;
     public JTextField name;
-    public JTextField foodGroup;
+    public JComboBox<String> foodGroup;
     public JTextField date;
-    public JTextField day;
+    public JComboBox<String> day;
     public JTextField drink;    
     public JButton save;
     private JButton cancel;
@@ -36,9 +36,9 @@ public class MealView extends JFrame {
 
         //TextField
         name = new JTextField();
-        foodGroup = new JTextField();
+        foodGroup = new JComboBox<>();
         date = new JTextField();
-        day = new JTextField();
+        day = new JComboBox<>();
         drink = new JTextField();
 
         //Button
@@ -47,6 +47,10 @@ public class MealView extends JFrame {
         delete = new JButton();
 
         setDefaultCloseOperation(WindowConstants.DISPOSE_ON_CLOSE);
+
+        //Drop down
+        foodGroup.setModel(new DefaultComboBoxModel<>(new String[] {"FRUIT", "VEGETABLE", "GRAIN", "PROTEIN", "DAIRY"} ));
+        day.setModel(new DefaultComboBoxModel<>(new String[] {"BREAKFAST", "LUNCH", "DINNER"} ));
 
         //Title
         title.setFont(new Font("Tahoma", 0, 24)); // NOI18N 
@@ -85,7 +89,13 @@ public class MealView extends JFrame {
         });
 
         //Image
-        image.setIcon(new ImageIcon("image path")); 
+        image.setIcon(new ImageIcon("image path"));
+        image.addMouseListener(new MouseAdapter(){
+            @Override
+            public void mouseClicked(MouseEvent e) {
+                handleFile();
+            }
+        });
 
         //UI Swing Stuff
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -168,5 +178,14 @@ public class MealView extends JFrame {
 
     public void addListener(MealViewListener mealViewListener) {
         this.mealViewListener = mealViewListener;
+    }
+
+    private void handleFile() {
+        JFileChooser fileChooser = new JFileChooser();
+        int returnVal = fileChooser.showOpenDialog(null);
+
+        if (returnVal == JFileChooser.APPROVE_OPTION) {
+            System.out.println(fileChooser.getSelectedFile().getAbsolutePath());
+        }
     }
 }

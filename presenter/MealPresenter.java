@@ -32,10 +32,10 @@ public class MealPresenter implements Subscriber, MealViewListener {
         Meal meal = new Meal();
         meal.setMealId(currentMealId);
         meal.setName(mealView.name.getText());
-        meal.setFoodGroup(FoodGroup.valueOf(mealView.foodGroup.getText()));
+        meal.setFoodGroup(FoodGroup.valueOf(mealView.foodGroup.getSelectedItem().toString()));
         meal.setImagePath(""); // Hmm macam mana ni
         meal.setDate(mealView.date.getText());
-        meal.setDay(Day.valueOf(mealView.day.getText()));
+        meal.setDay(Day.valueOf(mealView.day.getSelectedItem().toString()));
         meal.setDrink(mealView.drink.getText());
 
         if (currentMealId > 0) {
@@ -92,9 +92,9 @@ public class MealPresenter implements Subscriber, MealViewListener {
         Meal meal = mealRepository.getById(currentMealId);
         mealView.image.setIcon(new ImageIcon(meal.getImagePath()));
         mealView.date.setText(meal.getDate());
-        mealView.day.setText(meal.getDay().toString()); // Drop down?
+        mealView.day.setSelectedItem(meal.getDay().toString());
         mealView.drink.setText(meal.getDrink());
-        mealView.foodGroup.setText(meal.getFoodGroup().toString());
+        mealView.foodGroup.setSelectedItem(meal.getFoodGroup().toString());
         mealView.name.setText(meal.getName());
         
         if (viewMealEnterEvent.getMode() == Mode.VIEW) {
