@@ -2,21 +2,21 @@ package model;
 
 import java.lang.Comparable;
 
-enum Day {
-    BREAKFAST,
-    LUNCH,
-    DINNER
-}
-
-enum FoodGroup{
-    FRUIT,
-    VEGETABLE,
-    GRAIN,
-    PROTEIN,
-    DAIRY
-}
-
 public class Meal implements Comparable<Meal> {
+    public enum Day {
+        BREAKFAST,
+        LUNCH,
+        DINNER
+    }
+
+    public enum FoodGroup {
+        FRUIT,
+        VEGETABLE,
+        GRAIN,
+        PROTEIN,
+        DAIRY
+    }
+
     private int mealId;
     private String userId;
     private String imagePath;

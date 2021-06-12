@@ -8,6 +8,9 @@ import java.util.Collections;
 import java.util.List;
 import java.util.Scanner;
 
+import model.Meal.Day;
+import model.Meal.FoodGroup;
+
 public class MealRepositoryImpl implements MealRepository {
     private String databasePath;
 
@@ -71,7 +74,7 @@ public class MealRepositoryImpl implements MealRepository {
         List<Meal> filteredMeals = new ArrayList<>();
 
         for (Meal meal : meals) {
-            if (meal.getUserId() == userId) {
+            if (meal.getUserId().equals(userId)) {
                 filteredMeals.add(meal);
             }
         }
