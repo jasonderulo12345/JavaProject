@@ -5,9 +5,6 @@ import java.awt.Font;
 import javax.swing.*;
 import javax.swing.table.DefaultTableModel;
 
-import java.util.ArrayList;
-import java.util.List;
-
 public class HomeView extends JFrame {
     private HomeViewListener homeViewListener;
 
@@ -20,7 +17,7 @@ public class HomeView extends JFrame {
     private JTextField searchBar;
     private JComboBox<String> filterBox;
     private JScrollPane jScrollPane1; //idk apa ni
-    private JTable mealTable;
+    public JTable mealTable;
 
     public HomeView() {
 
@@ -61,35 +58,47 @@ public class HomeView extends JFrame {
 
         //Set text
         searchBar.setText("SearchBar");
+        
         logout.setText("Logout");
+        logout.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent evt) {               
+                homeViewListener.onLogoutButtonPressed();
+            }
+        });
+
         addMeal.setText("Add Meal");
+        addMeal.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent evt) {               
+                homeViewListener.onAddMealPressed();
+            }
+        });
+
         deleteMeal.setText("Delete Meal");
+        deleteMeal.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent evt) {               
+                homeViewListener.onDeleteMealPressed();
+            }
+        });
+
         editMeal.setText("Edit Meal");
+        editMeal.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent evt) {               
+                homeViewListener.onEditMealPressed();
+            }
+        });
+
         viewMeal.setText("View Meal");
+        viewMeal.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent evt) {               
+                homeViewListener.onViewMealPressed();
+            }
+        });
 
         //Meal Table
-        mealTable.setModel(new DefaultTableModel(
-                new Object [][] {
-                    {"Breakfast", "Coomer", "1", "test"},
-                    {"Breakfast", "Cooming", "2", "69"},
-                    {null, null, null, null},
-                    {null, null, null, null},
-                    {null, null, null, null},
-                    {null, null, null, null}
-                },
-                new String [] {
-                    "Meal Type", "Meal Name", "Day", "Time"
-                }
-            ) {
-                Class<?>[] types = new Class<?>[] {
-                    String.class, String.class, String.class, String.class
-                };
-
-                public Class<?> getColumnClass(int columnIndex) {
-                    return types [columnIndex];
-                }
-            });
-            jScrollPane1.setViewportView(mealTable);
+        mealTable.setRowSelectionAllowed(true);
+        mealTable.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
+        
+        jScrollPane1.setViewportView(mealTable);
 
         //UI Swing Stuff
         GroupLayout layout = new GroupLayout(getContentPane());
