@@ -1,6 +1,10 @@
 package model;
 
 import java.lang.Comparable;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Comparator;
+import java.util.Date;
 
 public class Meal implements Comparable<Meal> {
     public enum Day {
@@ -54,6 +58,26 @@ public class Meal implements Comparable<Meal> {
         }
         else {
             return -1;
+        }
+    }
+
+    public static class SortByDate implements Comparator<Meal> {
+        @Override
+        public int compare(Meal meal1, Meal meal2) {
+            SimpleDateFormat simpleDateFormat = new SimpleDateFormat("dd/MM/yyyy");
+
+            Date date1 = new Date();
+            Date date2 = new Date();
+            try {
+                date1 = simpleDateFormat.parse(meal1.getDate());
+                date2 = simpleDateFormat.parse(meal2.getDate());
+            }
+            catch (ParseException e) {
+                e.printStackTrace();
+                System.exit(0);
+            }
+
+            return date1.compareTo(date2);
         }
     }
 }
