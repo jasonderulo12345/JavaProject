@@ -68,7 +68,7 @@ public class MealPresenter implements Subscriber, MealViewListener {
         String imageSourcePath = mealView.image.getIcon().toString().replaceFirst("file:/", "");
         String imageDestPath = "./database/image/" + currentUserId + "_" + meal.getName() + "." + getFileExtensionFromPath(imageSourcePath);
 
-        if (imageSourcePath != null && 
+        if ( imageSourcePath != null && 
             !imageSourcePath.isEmpty() && 
             !imageSourcePath.isBlank() && 
             !imageSourcePath.equals(imageDestPath)) 
@@ -96,14 +96,10 @@ public class MealPresenter implements Subscriber, MealViewListener {
         mealView.dispose();
     }
 
+    // Delete image
     @Override
     public void onDeleteButtonPressed() {
-        if (currentMealId > 0) {
-            mealRepository.delete(currentMealId);
-        }
-
-        eventBus.dispatch(new ViewMealLeaveEvent());
-        mealView.dispose();
+        mealView.image.setIcon(new ImageIcon(""));
     }
 
     @Override
