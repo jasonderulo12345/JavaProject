@@ -29,6 +29,7 @@ import view.MealViewListener;
 public class MealPresenter implements Subscriber, MealViewListener {
     private int currentMealId;
     private String currentUserId;
+    private String currentImagePath;
     private Repository<Integer, Meal> mealRepository;
     private MealView mealView;
     private EventBus eventBus;
@@ -44,8 +45,6 @@ public class MealPresenter implements Subscriber, MealViewListener {
 
     @Override
     public void onSaveButtonPressed() {
-        boolean invalid = false;
-
         Meal meal = new Meal();
         meal.setUserId(currentUserId);
         meal.setMealId(currentMealId);
@@ -78,13 +77,7 @@ public class MealPresenter implements Subscriber, MealViewListener {
 
         // Save the image and copy into database
         // Ideally this is implemented inside repository
-        String imageSourcePath = "";
-
-        // Null checking
-        if (mealView.image.getIcon() != null) { 
-            imageSourcePath = mealView.image.getIcon().toString().replaceFirst("file:/", "");
-        }
-
+        String imageSourcePath = currentImagePath;
         String imageDestPath = "./database/image/" + currentUserId + "_" + meal.getName() + "." + getFileExtensionFromPath(imageSourcePath);
 
         if (!imageSourcePath.isEmpty() && 
@@ -117,6 +110,7 @@ public class MealPresenter implements Subscriber, MealViewListener {
     // Delete image
     @Override
     public void onDeleteButtonPressed() {
+        this.currentImagePath = "";
         mealView.image.setIcon(new ImageIcon(""));
         mealView.image.setText("Upload Image");
         mealView.image.setBorder(BorderFactory.createLineBorder(new Color(0, 0, 0)));
@@ -126,6 +120,11 @@ public class MealPresenter implements Subscriber, MealViewListener {
     public void onCancelButtonPressed() {
         eventBus.dispatch(new ViewMealLeaveEvent());
         mealView.dispose();
+    }
+
+    @Override
+    public void onImageChanged(String imagePath) {
+        this.currentImagePath = imagePath;
     }
 
     @Override
@@ -161,6 +160,7 @@ public class MealPresenter implements Subscriber, MealViewListener {
         
         // Setting up image
         if (!meal.getImagePath().isEmpty() && !meal.getImagePath().isBlank()) {
+            this.currentImagePath = meal.getImagePath(); // Assign the image path immediatly
             JLabel imageLabel = mealView.image;
             Image image = new ImageIcon(meal.getImagePath()).getImage();
             int scaledWidth = (int)(image.getWidth(null) * ((float)imageLabel.getHeight() / image.getHeight(null)));

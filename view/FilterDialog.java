@@ -145,6 +145,7 @@ public class FilterDialog extends JDialog {
         setIconImage(new ImageIcon("./resource/logo.png").getImage());
 
         pack();
+        getRootPane().setDefaultButton(search);
         setTitle("Filter");
         setResizable(false);
         setModalityType(ModalityType.APPLICATION_MODAL);

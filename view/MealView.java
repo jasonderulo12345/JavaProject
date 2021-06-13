@@ -214,5 +214,7 @@ public class MealView extends JFrame {
         image.setText("");
         image.setBorder(null);
         image.setIcon(scaledImageIcon);
+
+        mealViewListener.onImageChanged(imagePath);
     }
 }
