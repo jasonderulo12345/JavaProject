@@ -37,7 +37,7 @@ public class LoginPresenter implements Subscriber, LoginViewListener {
         for (User user : users) {
             if (user.getUserId().equals(userId) && Arrays.equals(user.getPassword().toCharArray(), password)) {
                 System.out.println("Verified!");
-                eventBus.dispatch(new LoginEvent(userId));
+                eventBus.dispatch(new LoginEvent(userId, user.getFullname()));
                 loginView.dispose();
                 return;
             }

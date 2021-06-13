@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
+import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableColumn;
 import javax.swing.table.TableModel;
@@ -98,8 +99,12 @@ public class HomePresenter implements Subscriber, HomeViewListener {
         filterCriteria.setUserId(currentUserId);
         filterCriteria.setName(filterDialog.name.getText());
 
-        SimpleDateFormat simpleDateFormat = new SimpleDateFormat("dd/MM/yyyy");
-        filterCriteria.setDate(simpleDateFormat.format(filterDialog.date.getModel().getValue()));
+        Object filterDateObject = filterDialog.date.getModel().getValue();
+        filterCriteria.setDate(""); // Default to empty date
+        if (filterDateObject != null) {
+            SimpleDateFormat simpleDateFormat = new SimpleDateFormat("dd/MM/yyyy");
+            filterCriteria.setDate(simpleDateFormat.format(filterDialog.date.getModel().getValue()));
+        }
 
         // If the category is NONE then ignore
         if (!filterDialog.dayComboBox.getSelectedItem().toString().equals("NONE")) {
@@ -112,6 +117,14 @@ public class HomePresenter implements Subscriber, HomeViewListener {
 
         filterDialog.dispose();
         List<Meal> filteredMeals = mealRepository.getByFilter(filterCriteria);
+
+        // If no results
+        if (filteredMeals.isEmpty()) {
+            JOptionPane.showMessageDialog(homeView, "No results found!", "Information", JOptionPane.INFORMATION_MESSAGE);
+            displayMeals(mealRepository.getAllByUserId(currentUserId));
+            return;
+        }
+
         displayMeals(filteredMeals);
     }
 
@@ -136,6 +149,7 @@ public class HomePresenter implements Subscriber, HomeViewListener {
         homeView = new HomeView();
         homeView.addListener(this);
         homeView.initUI();
+        homeView.title.setText("Welcome, " + loginEvent.getFullname());
         displayMeals(mealRepository.getAllByUserId(currentUserId));
     }
 
