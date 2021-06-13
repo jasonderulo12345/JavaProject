@@ -57,19 +57,19 @@ public class FilterDialog extends JDialog {
 
         //Set Text
         foodgroupLabel.setFont(new Font("Tahoma", 0, 14));
-        foodgroupLabel.setText("Food Group:");
+        foodgroupLabel.setText("Food Group");
 
         nameLabel.setFont(new Font("Tahoma", 0, 14));
-        nameLabel.setText("Name:");
+        nameLabel.setText("Name");
 
         dateLabel.setFont(new Font("Tahoma", 0, 14));
-        dateLabel.setText("Date:");
+        dateLabel.setText("Date");
 
         drinkLabel.setFont(new Font("Tahoma", 0, 14));
-        drinkLabel.setText("Drink:");
+        drinkLabel.setText("Drink");
 
         dayLabel.setFont(new Font("Tahoma", 0, 14));
-        dayLabel.setText("Day:");
+        dayLabel.setText("Day");
 
         //ComboBox
         foodgroupComboBox.setModel(new DefaultComboBoxModel<>(new String[] {"NONE", "FRUIT", "VEGETABLE", "GRAIN", "PROTEIN", "DAIRY"}));

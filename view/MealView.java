@@ -208,6 +208,11 @@ public class MealView extends JFrame {
 
         String imagePath = fileChooser.getSelectedFile().getAbsolutePath();
         System.out.println("Chosen file path: " + imagePath);
-        image.setIcon(new ImageIcon(imagePath));
+        Image imageData = new ImageIcon(imagePath).getImage();
+        int scaledWidth = (int)(imageData.getWidth(null) * ((float)image.getHeight() / imageData.getHeight(null)));
+        ImageIcon scaledImageIcon = new ImageIcon(imageData.getScaledInstance(scaledWidth, image.getHeight(), Image.SCALE_SMOOTH));
+        image.setText("");
+        image.setBorder(null);
+        image.setIcon(scaledImageIcon);
     }
 }

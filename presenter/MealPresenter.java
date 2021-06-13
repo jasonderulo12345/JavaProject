@@ -1,5 +1,7 @@
 package presenter;
 
+import java.awt.Color;
+import java.awt.Image;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
@@ -9,19 +11,16 @@ import java.io.OutputStream;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
-import java.util.Date;
-import java.util.logging.SimpleFormatter;
 
+import javax.swing.BorderFactory;
 import javax.swing.ImageIcon;
-
-import org.jdatepicker.impl.UtilDateModel;
+import javax.swing.JLabel;
 
 import event.*;
 import event.ViewMealEnterEvent.Mode;
 import model.Repository;
 import model.Meal.Day;
 import model.Meal.FoodGroup;
-import utility.DateLabelFormatter;
 import model.Meal;
 import view.MealView;
 import view.MealViewListener;
@@ -105,6 +104,8 @@ public class MealPresenter implements Subscriber, MealViewListener {
     @Override
     public void onDeleteButtonPressed() {
         mealView.image.setIcon(new ImageIcon(""));
+        mealView.image.setText("Upload Image");
+        mealView.image.setBorder(BorderFactory.createLineBorder(new Color(0, 0, 0)));
     }
 
     @Override
@@ -130,6 +131,7 @@ public class MealPresenter implements Subscriber, MealViewListener {
 
         if (viewMealEnterEvent.getMode() == Mode.ADD) {
             currentMealId = -1;
+            mealView.title.setText("Add New Meal");
             mealView.delete.setEnabled(false);
             return;
         }
@@ -139,14 +141,23 @@ public class MealPresenter implements Subscriber, MealViewListener {
 
         Meal meal = mealRepository.getById(currentMealId);
         mealView.title.setText(meal.getDay().toString() + ": " + meal.getName() + " and " + meal.getDrink());
-        mealView.image.setIcon(new ImageIcon(meal.getImagePath()));
-        mealView.image.setDisabledIcon(new ImageIcon(meal.getImagePath())); // Prevent graying out
+        
+        // Setting up image
+        if (!meal.getImagePath().isEmpty() && !meal.getImagePath().isBlank()) {
+            JLabel imageLabel = mealView.image;
+            Image image = new ImageIcon(meal.getImagePath()).getImage();
+            int scaledWidth = (int)(image.getWidth(null) * ((float)imageLabel.getHeight() / image.getHeight(null)));
+            ImageIcon imageIcon = new ImageIcon(image.getScaledInstance(scaledWidth, imageLabel.getHeight(), Image.SCALE_SMOOTH));
+            mealView.image.setText("");
+            mealView.image.setBorder(null);
+            mealView.image.setIcon(imageIcon);
+            mealView.image.setDisabledIcon(imageIcon); // Prevent graying out
+        }
+
         mealView.day.setSelectedItem(meal.getDay().toString());
         mealView.drink.setText(meal.getDrink());
         mealView.foodGroup.setSelectedItem(meal.getFoodGroup().toString());
         mealView.name.setText(meal.getName());
-
-        System.out.println(mealView.image.getIcon().toString());
 
         // Set the date
         // Have to do some workaround here lol
