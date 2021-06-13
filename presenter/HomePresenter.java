@@ -5,11 +5,15 @@ import java.util.List;
 
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableColumn;
+import javax.swing.table.TableModel;
 
 import event.*;
 import event.ViewMealEnterEvent.Mode;
 import model.*;
+import model.Meal.Day;
+import model.Meal.FoodGroup;
 import view.HomeViewListener;
+import view.FilterDialog;
 import view.HomeView;
 
 // Setiap presenter mesti ada view dgn repository aka model
@@ -87,8 +91,24 @@ public class HomePresenter implements Subscriber, HomeViewListener {
 
     @Override
     public void onFilterClicked() {
-        // TODO Auto-generated method stub
-        
+        FilterDialog filterDialog = homeView.filterDialog;
+
+        Meal filterCriteria = new Meal();
+        filterCriteria.setUserId(currentUserId);
+        filterCriteria.setName(filterDialog.name.getText());
+        filterCriteria.setDate(filterDialog.date.getText());
+        // If the category is NONE then ignore
+        if (!filterDialog.dayComboBox.getSelectedItem().toString().equals("NONE")) {
+            filterCriteria.setDay(Day.valueOf(filterDialog.dayComboBox.getSelectedItem().toString()));
+        }
+        if (!filterDialog.foodgroupComboBox.getSelectedItem().toString().equals("NONE")) {
+            filterCriteria.setFoodGroup(FoodGroup.valueOf(filterDialog.foodgroupComboBox.getSelectedItem().toString()));
+        }
+        filterCriteria.setDrink(filterDialog.drink.getText());
+
+        filterDialog.dispose();
+        List<Meal> filteredMeals = mealRepository.getByFilter(filterCriteria);
+        displayMeals(filteredMeals);
     }
 
     @Override
@@ -154,6 +174,6 @@ public class HomePresenter implements Subscriber, HomeViewListener {
         );
 
         // Hide the id
-        homeView.mealTable.removeColumn(new TableColumn(0));
+        homeView.mealTable.removeColumn(homeView.mealTable.getColumnModel().getColumn(0));
     }
 }

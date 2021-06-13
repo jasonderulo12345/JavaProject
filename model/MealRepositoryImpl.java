@@ -87,13 +87,24 @@ public class MealRepositoryImpl implements MealRepository {
         List<Meal> filteredMeals = readAllMeal();
 
         // Filter one by one with criteria given in argument
-        // TODO: Need null checking
-        filteredMeals.removeIf(e -> e.getMealId() != filterMeal.getMealId());
-        filteredMeals.removeIf(e -> !e.getName().equalsIgnoreCase(filterMeal.getName()));
-        filteredMeals.removeIf(e -> e.getFoodGroup() != filterMeal.getFoodGroup());
-        filteredMeals.removeIf(e -> !e.getDate().equalsIgnoreCase(filterMeal.getDate()));
-        filteredMeals.removeIf(e -> e.getDay() != filterMeal.getDay());
-        filteredMeals.removeIf(e -> !e.getDrink().equalsIgnoreCase(filterMeal.getDrink()));
+        // Need to do null checking
+        filteredMeals.removeIf(e -> !e.getUserId().equals(filterMeal.getUserId()));
+
+        if (!filterMeal.getName().isBlank() && !filterMeal.getName().isEmpty()) {
+            filteredMeals.removeIf(e -> !e.getName().equalsIgnoreCase(filterMeal.getName()));
+        }
+        if (filterMeal.getFoodGroup() != null) {
+            filteredMeals.removeIf(e -> e.getFoodGroup() != filterMeal.getFoodGroup());
+        }
+        if (!filterMeal.getDate().isBlank() && !filterMeal.getDate().isEmpty()) {
+            filteredMeals.removeIf(e -> !e.getDate().equalsIgnoreCase(filterMeal.getDate()));
+        }
+        if (filterMeal.getDay() != null) {
+            filteredMeals.removeIf(e -> e.getDay() != filterMeal.getDay());
+        }
+        if (!filterMeal.getDrink().isBlank() && !filterMeal.getDrink().isEmpty()) {
+            filteredMeals.removeIf(e -> !e.getDrink().equalsIgnoreCase(filterMeal.getDrink()));
+        }
 
         return filteredMeals;
     }

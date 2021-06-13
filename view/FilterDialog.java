@@ -8,12 +8,12 @@ public class FilterDialog extends JDialog {
     private JLabel dateLabel;
     private JLabel dayLabel;
     private JLabel drinkLabel;
-    private JButton Search;
-    private JTextField name;
-    private JTextField date;
-    private JTextField drink;
-    private JComboBox<String> foodgroupComboBox;
-    private JComboBox<String> dayComboBox;
+    public JButton search;
+    public JTextField name;
+    public JTextField date;
+    public JTextField drink;
+    public JComboBox<String> foodgroupComboBox;
+    public JComboBox<String> dayComboBox;
 
     public void initUI() {
 
@@ -34,7 +34,7 @@ public class FilterDialog extends JDialog {
         dayComboBox = new JComboBox<>();
 
         //Button
-        Search = new JButton();
+        search = new JButton();
 
         setDefaultCloseOperation(WindowConstants.DISPOSE_ON_CLOSE);
 
@@ -44,11 +44,11 @@ public class FilterDialog extends JDialog {
         dateLabel.setText("Date:");
         dayLabel.setText("Day:");
         drinkLabel.setText("Drink:");
-        Search.setText("Search");
+        search.setText("Search");
 
         //ComboBox
-        foodgroupComboBox.setModel(new DefaultComboBoxModel<>(new String[] {"FRUIT", "VEGETABLE", "GRAIN", "PROTEIN", "DAIRY"}));
-        dayComboBox.setModel(new DefaultComboBoxModel<>(new String[] {"BREAKFAST", "LUNCH", "DINNER"}));
+        foodgroupComboBox.setModel(new DefaultComboBoxModel<>(new String[] {"NONE", "FRUIT", "VEGETABLE", "GRAIN", "PROTEIN", "DAIRY"}));
+        dayComboBox.setModel(new DefaultComboBoxModel<>(new String[] {"NONE", "BREAKFAST", "LUNCH", "DINNER"}));
 
         //Swing UI Stuff
         GroupLayout layout = new GroupLayout(getContentPane());
@@ -58,7 +58,7 @@ public class FilterDialog extends JDialog {
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(layout.createParallelGroup(GroupLayout.Alignment.TRAILING)
-                    .addComponent(Search)
+                    .addComponent(search)
                     .addGroup(layout.createParallelGroup(GroupLayout.Alignment.LEADING, false)
                         .addGroup(layout.createSequentialGroup()
                             .addComponent(nameLabel)
@@ -102,13 +102,12 @@ public class FilterDialog extends JDialog {
                     .addComponent(drinkLabel, GroupLayout.PREFERRED_SIZE, 35, GroupLayout.PREFERRED_SIZE)
                     .addComponent(drink, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(Search)
+                .addComponent(search)
                 .addContainerGap(GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         pack();
         setResizable(false);
         setModalityType(ModalityType.APPLICATION_MODAL);
-        setVisible(true);
     }
 }

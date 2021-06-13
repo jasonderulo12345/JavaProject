@@ -19,7 +19,7 @@ public class HomeView extends JFrame {
     private JButton filter;
     private JScrollPane jScrollPane1; //idk apa ni
     public JTable mealTable;
-    private FilterDialog filterDialog;
+    public FilterDialog filterDialog;
 
     public HomeView() { }
 
@@ -164,6 +164,16 @@ public class HomeView extends JFrame {
     public void showFilterDialog() {
         filterDialog = new FilterDialog();
         filterDialog.initUI();
+
+        filterDialog.search.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                System.out.println("Filter clicked");
+                homeViewListener.onFilterClicked();
+            }
+        });
+
+        filterDialog.setVisible(true);
     }
 
     public void addListener(HomeViewListener homeViewListener) {
