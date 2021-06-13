@@ -112,7 +112,6 @@ public class MealView extends JFrame {
 
         //Image
         image.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
-        image.setIcon(new ImageIcon("image path"));
         image.addMouseListener(new MouseAdapter(){
             @Override
             public void mouseClicked(MouseEvent e) {

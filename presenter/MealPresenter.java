@@ -65,13 +65,18 @@ public class MealPresenter implements Subscriber, MealViewListener {
 
         // Save the image and copy into database
         // Ideally this is implemented inside repository
-        String imageSourcePath = mealView.image.getIcon().toString().replaceFirst("file:/", "");
+        String imageSourcePath = "";
+
+        // Null checking
+        if (mealView.image.getIcon() != null) { 
+            imageSourcePath = mealView.image.getIcon().toString().replaceFirst("file:/", "");
+        }
+
         String imageDestPath = "./database/image/" + currentUserId + "_" + meal.getName() + "." + getFileExtensionFromPath(imageSourcePath);
 
-        if ( imageSourcePath != null && 
-            !imageSourcePath.isEmpty() && 
+        if (!imageSourcePath.isEmpty() && 
             !imageSourcePath.isBlank() && 
-            !imageSourcePath.equals(imageDestPath)) 
+            !imageSourcePath.equals(imageDestPath))
         {
             try {
                 File imageSourceFile = new File(imageSourcePath);
