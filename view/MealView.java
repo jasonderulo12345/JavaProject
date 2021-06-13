@@ -182,10 +182,14 @@ public class MealView extends JFrame {
 
     private void handleFile() {
         JFileChooser fileChooser = new JFileChooser();
-        int returnVal = fileChooser.showOpenDialog(null);
+        int returnVal = fileChooser.showOpenDialog(this);
 
-        if (returnVal == JFileChooser.APPROVE_OPTION) {
-            System.out.println(fileChooser.getSelectedFile().getAbsolutePath());
+        if (returnVal != JFileChooser.APPROVE_OPTION) {
+            return;
         }
+
+        String imagePath = fileChooser.getSelectedFile().getAbsolutePath();
+        System.out.println("Chosen file path: " + imagePath);
+        image.setIcon(new ImageIcon(imagePath));
     }
 }

@@ -1,5 +1,12 @@
 package presenter;
 
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.OutputStream;
+
 import javax.swing.ImageIcon;
 
 import event.*;
@@ -30,19 +37,33 @@ public class MealPresenter implements Subscriber, MealViewListener {
     @Override
     public void onSaveButtonPressed() {
         Meal meal = new Meal();
+        meal.setUserId(currentUserId);
         meal.setMealId(currentMealId);
         meal.setName(mealView.name.getText());
         meal.setFoodGroup(FoodGroup.valueOf(mealView.foodGroup.getSelectedItem().toString()));
-        meal.setImagePath(""); // Hmm macam mana ni
         meal.setDate(mealView.date.getText());
         meal.setDay(Day.valueOf(mealView.day.getSelectedItem().toString()));
         meal.setDrink(mealView.drink.getText());
+
+        // Save the image and copy into database
+        // Ideally this is implemented inside repository
+        try {
+            String imageSourcePath = mealView.image.getIcon().toString().replaceFirst("file:/", "");
+            String imageDestPath = "./database/image/" + currentUserId + "_" + meal.getName() + "." + getFileExtensionFromPath(imageSourcePath);
+            File imageSourceFile = new File(imageSourcePath);
+            File imageDestFile = new File(imageDestPath);
+            imageDestFile.createNewFile(); // Create new file if doesn't exists
+            copyFile(imageSourceFile, imageDestFile);
+            meal.setImagePath(imageDestPath);
+        } catch (IOException e) {
+            e.printStackTrace();
+            System.exit(0);
+        }
 
         if (currentMealId > 0) {
             mealRepository.update(meal);
         }
         else {
-            meal.setUserId(currentUserId);
             mealRepository.add(meal);
         }
 
@@ -109,5 +130,32 @@ public class MealPresenter implements Subscriber, MealViewListener {
             mealView.delete.setEnabled(false);
             mealView.save.setEnabled(false);
         }
+    }
+
+    private void copyFile(File src, File dest) {
+        try (
+            InputStream inputStream = new FileInputStream(src);
+            OutputStream outputStream = new FileOutputStream(dest);
+        ) {
+            byte[] buffer = new byte[1024];
+            int length = 0;
+            while ((length = inputStream.read(buffer)) > 0) {
+                outputStream.write(buffer, 0, length);
+            }
+        }
+        catch (IOException e) {
+            e.printStackTrace();
+            System.exit(0);
+        }
+    }
+
+    private String getFileExtensionFromPath(String path) {
+        String extension = "";
+
+        int i = path.lastIndexOf('.');
+        if (i > 0) {
+            extension =  path.substring(i + 1);
+        }
+        return extension;
     }
 }
