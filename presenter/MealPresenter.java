@@ -15,6 +15,7 @@ import java.util.Calendar;
 import javax.swing.BorderFactory;
 import javax.swing.ImageIcon;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 
 import event.*;
 import event.ViewMealEnterEvent.Mode;
@@ -43,6 +44,8 @@ public class MealPresenter implements Subscriber, MealViewListener {
 
     @Override
     public void onSaveButtonPressed() {
+        boolean invalid = false;
+
         Meal meal = new Meal();
         meal.setUserId(currentUserId);
         meal.setMealId(currentMealId);
@@ -51,6 +54,17 @@ public class MealPresenter implements Subscriber, MealViewListener {
         meal.setFoodGroup(FoodGroup.valueOf(mealView.foodGroup.getSelectedItem().toString()));
         meal.setDay(Day.valueOf(mealView.day.getSelectedItem().toString()));
         meal.setDrink(mealView.drink.getText());
+
+        // Null checking
+        if (
+            meal.getName().isBlank() ||
+            meal.getDrink().isBlank() ||
+            mealView.date.getModel().getValue() == null
+        )
+        {
+            JOptionPane.showMessageDialog(mealView, "Invalid input, please try again!", "Error", JOptionPane.ERROR_MESSAGE);
+            return;
+        }
 
         // Set the date
         try {
@@ -140,6 +154,9 @@ public class MealPresenter implements Subscriber, MealViewListener {
         currentMealId = viewMealEnterEvent.getMealId();
 
         Meal meal = mealRepository.getById(currentMealId);
+        if (meal.getDrink().isBlank()) {
+
+        }
         mealView.title.setText(meal.getDay().toString() + ": " + meal.getName() + " and " + meal.getDrink());
         
         // Setting up image

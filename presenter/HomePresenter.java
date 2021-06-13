@@ -86,7 +86,7 @@ public class HomePresenter implements Subscriber, HomeViewListener {
         // Ask for confirmation
         int dialogResult = JOptionPane.showConfirmDialog(
             homeView, 
-            "Would You Like to Delete This Meal Record?", 
+            "Confirm to Delete This Meal Record?", 
             "Warning", 
             JOptionPane.YES_NO_OPTION,
             JOptionPane.QUESTION_MESSAGE
