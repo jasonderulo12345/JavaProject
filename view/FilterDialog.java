@@ -1,5 +1,16 @@
 package view;
+
+import utility.*;
+
+import java.awt.Component;
+import java.util.Properties;
+
 import javax.swing.*;
+
+import org.jdatepicker.JDatePicker;
+import org.jdatepicker.impl.JDatePanelImpl;
+import org.jdatepicker.impl.JDatePickerImpl;
+import org.jdatepicker.impl.UtilDateModel;
 
 public class FilterDialog extends JDialog {
     //Variable Declaration
@@ -10,7 +21,7 @@ public class FilterDialog extends JDialog {
     private JLabel drinkLabel;
     public JButton search;
     public JTextField name;
-    public JTextField date;
+    public JDatePicker date;
     public JTextField drink;
     public JComboBox<String> foodgroupComboBox;
     public JComboBox<String> dayComboBox;
@@ -26,8 +37,12 @@ public class FilterDialog extends JDialog {
 
         //TextField
         name = new JTextField();
-        date = new JTextField();
         drink = new JTextField();
+
+        //Setting up date picker
+        UtilDateModel model = new UtilDateModel();
+        JDatePanelImpl datePanel = new JDatePanelImpl(model, new Properties());
+        date = new JDatePickerImpl(datePanel, new DateLabelFormatter());
 
         //ComboBox
         foodgroupComboBox = new JComboBox<>();
@@ -73,7 +88,7 @@ public class FilterDialog extends JDialog {
                             .addGap(18, 18, 18)
                             .addGroup(layout.createParallelGroup(GroupLayout.Alignment.LEADING)
                                 .addComponent(foodgroupComboBox, 0, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addComponent(date)
+                                .addComponent((Component) date)
                                 .addComponent(dayComboBox, 0, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                                 .addComponent(drink)))))
                 .addContainerGap(37, Short.MAX_VALUE))
@@ -92,7 +107,7 @@ public class FilterDialog extends JDialog {
                 .addPreferredGap(LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(GroupLayout.Alignment.BASELINE)
                     .addComponent(dateLabel, GroupLayout.PREFERRED_SIZE, 35, GroupLayout.PREFERRED_SIZE)
-                    .addComponent(date, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
+                    .addComponent((Component) date, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(GroupLayout.Alignment.BASELINE)
                     .addComponent(dayLabel, GroupLayout.PREFERRED_SIZE, 35, GroupLayout.PREFERRED_SIZE)

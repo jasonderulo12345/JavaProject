@@ -1,6 +1,8 @@
 package presenter;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 import javax.swing.table.DefaultTableModel;
@@ -10,8 +12,7 @@ import javax.swing.table.TableModel;
 import event.*;
 import event.ViewMealEnterEvent.Mode;
 import model.*;
-import model.Meal.Day;
-import model.Meal.FoodGroup;
+import model.Meal.*;
 import view.HomeViewListener;
 import view.FilterDialog;
 import view.HomeView;
@@ -96,7 +97,10 @@ public class HomePresenter implements Subscriber, HomeViewListener {
         Meal filterCriteria = new Meal();
         filterCriteria.setUserId(currentUserId);
         filterCriteria.setName(filterDialog.name.getText());
-        filterCriteria.setDate(filterDialog.date.getText());
+
+        SimpleDateFormat simpleDateFormat = new SimpleDateFormat("dd/MM/yyyy");
+        filterCriteria.setDate(simpleDateFormat.format(filterDialog.date.getModel().getValue()));
+
         // If the category is NONE then ignore
         if (!filterDialog.dayComboBox.getSelectedItem().toString().equals("NONE")) {
             filterCriteria.setDay(Day.valueOf(filterDialog.dayComboBox.getSelectedItem().toString()));
@@ -143,6 +147,9 @@ public class HomePresenter implements Subscriber, HomeViewListener {
     // mealId will not be displayed in the view
     // it is strictly for identifying which row is for which meal
     public void displayMeals(List<Meal> meals) {
+        // Sort meals by date
+        Collections.sort(meals, new SortByDate());
+
         String tableHeader[] = { "mealId", "Date", "Day", "Food Group", "Name", "Drink" };
         List<List<String>> tableData = new ArrayList<>();
 

@@ -2,7 +2,6 @@ package view;
 
 import java.awt.event.*;
 import java.awt.Font;
-import java.awt.Dialog.ModalityType;
 
 import javax.swing.*;
 

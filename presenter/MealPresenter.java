@@ -6,14 +6,22 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
+import java.util.Date;
+import java.util.logging.SimpleFormatter;
 
 import javax.swing.ImageIcon;
+
+import org.jdatepicker.impl.UtilDateModel;
 
 import event.*;
 import event.ViewMealEnterEvent.Mode;
 import model.Repository;
 import model.Meal.Day;
 import model.Meal.FoodGroup;
+import utility.DateLabelFormatter;
 import model.Meal;
 import view.MealView;
 import view.MealViewListener;
@@ -39,11 +47,21 @@ public class MealPresenter implements Subscriber, MealViewListener {
         Meal meal = new Meal();
         meal.setUserId(currentUserId);
         meal.setMealId(currentMealId);
+        meal.setImagePath(""); // Initially empty
         meal.setName(mealView.name.getText());
         meal.setFoodGroup(FoodGroup.valueOf(mealView.foodGroup.getSelectedItem().toString()));
-        meal.setDate(mealView.date.getText());
         meal.setDay(Day.valueOf(mealView.day.getSelectedItem().toString()));
         meal.setDrink(mealView.drink.getText());
+
+        // Set the date
+        try {
+            SimpleDateFormat simpleDateFormat = new SimpleDateFormat("dd/MM/yyyy");
+            String date = simpleDateFormat.format(mealView.date.getModel().getValue());
+            meal.setDate(date);
+        } catch (IllegalArgumentException e) {
+            e.printStackTrace();
+            System.exit(0);
+        }
 
         // Save the image and copy into database
         // Ideally this is implemented inside repository
@@ -114,15 +132,30 @@ public class MealPresenter implements Subscriber, MealViewListener {
         Meal meal = mealRepository.getById(currentMealId);
         mealView.title.setText(meal.getName() + " and " + meal.getDrink());
         mealView.image.setIcon(new ImageIcon(meal.getImagePath()));
-        mealView.date.setText(meal.getDate());
         mealView.day.setSelectedItem(meal.getDay().toString());
         mealView.drink.setText(meal.getDrink());
         mealView.foodGroup.setSelectedItem(meal.getFoodGroup().toString());
         mealView.name.setText(meal.getName());
+
+        // Set the date
+        // Have to do some workaround here lol
+        try {
+            SimpleDateFormat simpleDateFormat = new SimpleDateFormat("dd/MM/yyyy");
+            Calendar calendar = Calendar.getInstance();
+            calendar.setTime(simpleDateFormat.parse(meal.getDate()));
+
+            mealView.date.getModel().setDay(calendar.get(Calendar.DAY_OF_MONTH));
+            mealView.date.getModel().setMonth(calendar.get(Calendar.MONTH) + 0);
+            mealView.date.getModel().setYear(calendar.get(Calendar.YEAR));
+            mealView.date.getModel().setSelected(true);
+        } catch (ParseException e) {
+            e.printStackTrace();
+            System.exit(0);
+        }
         
         if (viewMealEnterEvent.getMode() == Mode.VIEW) {
             // Disable text fields
-            mealView.date.setEditable(false);
+            mealView.date.setTextEditable(false);
             mealView.day.setEditable(false);
             mealView.drink.setEditable(false);
             mealView.foodGroup.setEditable(false);

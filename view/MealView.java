@@ -1,7 +1,17 @@
 package view;
 
 import javax.swing.*;
+
+import org.jdatepicker.JDatePicker;
+import org.jdatepicker.impl.JDatePanelImpl;
+import org.jdatepicker.impl.JDatePickerImpl;
+import org.jdatepicker.impl.UtilDateModel;
+
+import utility.DateLabelFormatter;
+
 import java.awt.event.*;
+import java.util.Properties;
+import java.awt.Component;
 import java.awt.Font;
 
 public class MealView extends JFrame {
@@ -17,7 +27,7 @@ public class MealView extends JFrame {
     private JLabel drinkLabel;
     public JTextField name;
     public JComboBox<String> foodGroup;
-    public JTextField date;
+    public JDatePicker date;
     public JComboBox<String> day;
     public JTextField drink;    
     public JButton save;
@@ -34,10 +44,14 @@ public class MealView extends JFrame {
         drinkLabel = new JLabel();
         image = new JLabel();
 
+        //Date
+        UtilDateModel model = new UtilDateModel();
+        JDatePanelImpl datePanel = new JDatePanelImpl(model, new Properties());
+        date = new JDatePickerImpl(datePanel, new DateLabelFormatter());
+
         //TextField
         name = new JTextField();
         foodGroup = new JComboBox<>();
-        date = new JTextField();
         day = new JComboBox<>();
         drink = new JTextField();
 
@@ -127,7 +141,7 @@ public class MealView extends JFrame {
                                 .addGroup(layout.createParallelGroup(GroupLayout.Alignment.TRAILING)
                                     .addComponent(name, GroupLayout.PREFERRED_SIZE, 521, GroupLayout.PREFERRED_SIZE)
                                     .addComponent(foodGroup, GroupLayout.PREFERRED_SIZE, 521, GroupLayout.PREFERRED_SIZE))
-                                .addComponent(date, GroupLayout.Alignment.TRAILING, GroupLayout.PREFERRED_SIZE, 521, GroupLayout.PREFERRED_SIZE))
+                                .addComponent((Component) date, GroupLayout.Alignment.TRAILING, GroupLayout.PREFERRED_SIZE, 521, GroupLayout.PREFERRED_SIZE))
                             .addComponent(day, GroupLayout.Alignment.TRAILING, GroupLayout.PREFERRED_SIZE, 521, GroupLayout.PREFERRED_SIZE))
                         .addComponent(drink, GroupLayout.Alignment.TRAILING, GroupLayout.PREFERRED_SIZE, 521, GroupLayout.PREFERRED_SIZE)
                         .addGroup(layout.createSequentialGroup()
@@ -155,7 +169,7 @@ public class MealView extends JFrame {
                         .addComponent(foodGroup, GroupLayout.PREFERRED_SIZE, 35, GroupLayout.PREFERRED_SIZE))
                     .addPreferredGap(LayoutStyle.ComponentPlacement.UNRELATED)
                     .addGroup(layout.createParallelGroup(GroupLayout.Alignment.LEADING, false)
-                        .addComponent(date, GroupLayout.DEFAULT_SIZE, 35, Short.MAX_VALUE)
+                        .addComponent((Component) date, GroupLayout.DEFAULT_SIZE, 35, Short.MAX_VALUE)
                         .addComponent(dateLabel, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                     .addPreferredGap(LayoutStyle.ComponentPlacement.UNRELATED)
                     .addGroup(layout.createParallelGroup(GroupLayout.Alignment.LEADING, false)
