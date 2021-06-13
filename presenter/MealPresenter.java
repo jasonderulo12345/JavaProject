@@ -37,6 +37,7 @@ public class MealPresenter implements Subscriber, MealViewListener {
     public MealPresenter(Repository<Integer, Meal> mealRepository, EventBus eventBus) {
         this.currentMealId = -1; // Assuming ADD mode
         this.currentUserId = "";
+        this.currentImagePath = "";
         this.mealRepository = mealRepository;
 
         this.eventBus = eventBus;
