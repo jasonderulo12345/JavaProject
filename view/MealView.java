@@ -8,7 +8,7 @@ public class MealView extends JFrame {
     private MealViewListener mealViewListener;
 
     //Variable Declaration
-    private JLabel title;
+    public JLabel title;
     public JLabel image;
     private JLabel nameLabel;
     private JLabel foodgroupLabel;

@@ -104,6 +104,7 @@ public class MealPresenter implements Subscriber, MealViewListener {
 
         if (viewMealEnterEvent.getMode() == Mode.ADD) {
             currentMealId = -1;
+            mealView.delete.setEnabled(false);
             return;
         }
 
@@ -111,6 +112,7 @@ public class MealPresenter implements Subscriber, MealViewListener {
         currentMealId = viewMealEnterEvent.getMealId();
 
         Meal meal = mealRepository.getById(currentMealId);
+        mealView.title.setText(meal.getName() + " and " + meal.getDrink());
         mealView.image.setIcon(new ImageIcon(meal.getImagePath()));
         mealView.date.setText(meal.getDate());
         mealView.day.setSelectedItem(meal.getDay().toString());
