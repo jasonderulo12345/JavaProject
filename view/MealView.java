@@ -6,6 +6,7 @@ import org.jdatepicker.impl.JDatePickerImpl;
 import org.jdatepicker.impl.UtilDateModel;
 
 import utility.DateLabelFormatter;
+import utility.ImageFileFilter;
 
 import java.util.Properties;
 import java.awt.*;
@@ -200,6 +201,7 @@ public class MealView extends JFrame {
 
     private void handleFile() {
         JFileChooser fileChooser = new JFileChooser();
+        fileChooser.setFileFilter(new ImageFileFilter()); // accepts image file only
         int returnVal = fileChooser.showOpenDialog(this);
 
         if (returnVal != JFileChooser.APPROVE_OPTION) {
