@@ -73,10 +73,10 @@ public class MealView extends JFrame {
 
         //Delete
         delete.setText("Delete");
-            delete.addActionListener(new ActionListener() {
-                public void actionPerformed(ActionEvent evt) {
-                   mealViewListener.onDeleteButtonPressed();
-                }
+        delete.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent evt) {
+                mealViewListener.onDeleteButtonPressed();
+            }
         });
 
         //Set Text
@@ -107,7 +107,7 @@ public class MealView extends JFrame {
         image.addMouseListener(new MouseAdapter(){
             @Override
             public void mouseClicked(MouseEvent e) {
-                handleFile();
+                if (image.isEnabled()) { handleFile(); }
             }
         });
 
