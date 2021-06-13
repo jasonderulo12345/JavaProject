@@ -151,6 +151,8 @@ public class MealRepositoryImpl implements MealRepository {
             return;
         }
 
+        // For aesthetic purposes
+        Collections.sort(meals);
         StringBuilder stringBuilder = new StringBuilder();
 
         for (Meal meal : meals) {
