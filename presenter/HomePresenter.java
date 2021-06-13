@@ -83,6 +83,19 @@ public class HomePresenter implements Subscriber, HomeViewListener {
             return;
         }
 
+        // Ask for confirmation
+        int dialogResult = JOptionPane.showConfirmDialog(
+            homeView, 
+            "Would You Like to Delete This Meal Record?", 
+            "Warning", 
+            JOptionPane.YES_NO_OPTION,
+            JOptionPane.QUESTION_MESSAGE
+        );
+
+        if (dialogResult == JOptionPane.NO_OPTION) {
+            return;
+        }
+
         String selectedMealIdString = (String)homeView.mealTable.getModel().getValueAt(selectedRow, 0);
         int selectedMealId = Integer.parseInt(selectedMealIdString);
 
