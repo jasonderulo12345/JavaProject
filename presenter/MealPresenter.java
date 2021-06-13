@@ -138,7 +138,7 @@ public class MealPresenter implements Subscriber, MealViewListener {
         currentMealId = viewMealEnterEvent.getMealId();
 
         Meal meal = mealRepository.getById(currentMealId);
-        mealView.title.setText(meal.getName() + " and " + meal.getDrink());
+        mealView.title.setText(meal.getDay().toString() + ": " + meal.getName() + " and " + meal.getDrink());
         mealView.image.setIcon(new ImageIcon(meal.getImagePath()));
         mealView.image.setDisabledIcon(new ImageIcon(meal.getImagePath())); // Prevent graying out
         mealView.day.setSelectedItem(meal.getDay().toString());

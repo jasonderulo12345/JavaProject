@@ -189,6 +189,7 @@ public class MealView extends JFrame {
         setIconImage(new ImageIcon("./resource/logo.png").getImage());
 
         pack();
+        setTitle("Login");
         setResizable(false);
         setVisible(true);
     }

@@ -153,6 +153,7 @@ public class HomeView extends JFrame {
         setIconImage(new ImageIcon("./resource/logo.png").getImage());
 
         pack();
+        setTitle("Home");
         setResizable(false);
         setVisible(true);
     }

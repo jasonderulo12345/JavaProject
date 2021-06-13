@@ -151,8 +151,9 @@ public class MealRepositoryImpl implements MealRepository {
             return;
         }
 
-        // For aesthetic purposes
+        // For aesthetic purposes, show most recent
         Collections.sort(meals);
+        Collections.reverse(meals);
         StringBuilder stringBuilder = new StringBuilder();
 
         for (Meal meal : meals) {
