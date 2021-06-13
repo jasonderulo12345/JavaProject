@@ -65,17 +65,24 @@ public class MealPresenter implements Subscriber, MealViewListener {
 
         // Save the image and copy into database
         // Ideally this is implemented inside repository
-        try {
-            String imageSourcePath = mealView.image.getIcon().toString().replaceFirst("file:/", "");
-            String imageDestPath = "./database/image/" + currentUserId + "_" + meal.getName() + "." + getFileExtensionFromPath(imageSourcePath);
-            File imageSourceFile = new File(imageSourcePath);
-            File imageDestFile = new File(imageDestPath);
-            imageDestFile.createNewFile(); // Create new file if doesn't exists
-            copyFile(imageSourceFile, imageDestFile);
-            meal.setImagePath(imageDestPath);
-        } catch (IOException e) {
-            e.printStackTrace();
-            System.exit(0);
+        String imageSourcePath = mealView.image.getIcon().toString().replaceFirst("file:/", "");
+        String imageDestPath = "./database/image/" + currentUserId + "_" + meal.getName() + "." + getFileExtensionFromPath(imageSourcePath);
+
+        if (imageSourcePath != null && 
+            !imageSourcePath.isEmpty() && 
+            !imageSourcePath.isBlank() && 
+            !imageSourcePath.equals(imageDestPath)) 
+        {
+            try {
+                File imageSourceFile = new File(imageSourcePath);
+                File imageDestFile = new File(imageDestPath);
+                imageDestFile.createNewFile(); // Create new file if doesn't exists
+                copyFile(imageSourceFile, imageDestFile);
+                meal.setImagePath(imageDestPath);
+            } catch (IOException e) {
+                e.printStackTrace();
+                System.exit(0);
+            }
         }
 
         if (currentMealId > 0) {
@@ -132,10 +139,13 @@ public class MealPresenter implements Subscriber, MealViewListener {
         Meal meal = mealRepository.getById(currentMealId);
         mealView.title.setText(meal.getName() + " and " + meal.getDrink());
         mealView.image.setIcon(new ImageIcon(meal.getImagePath()));
+        mealView.image.setDisabledIcon(new ImageIcon(meal.getImagePath())); // Prevent graying out
         mealView.day.setSelectedItem(meal.getDay().toString());
         mealView.drink.setText(meal.getDrink());
         mealView.foodGroup.setSelectedItem(meal.getFoodGroup().toString());
         mealView.name.setText(meal.getName());
+
+        System.out.println(mealView.image.getIcon().toString());
 
         // Set the date
         // Have to do some workaround here lol
@@ -154,7 +164,8 @@ public class MealPresenter implements Subscriber, MealViewListener {
         }
         
         if (viewMealEnterEvent.getMode() == Mode.VIEW) {
-            // Disable text fields
+            // Disable fields
+            mealView.image.setEnabled(false);
             mealView.date.setTextEditable(false);
             mealView.day.setEditable(false);
             mealView.drink.setEditable(false);
