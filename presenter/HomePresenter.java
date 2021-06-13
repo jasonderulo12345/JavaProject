@@ -118,14 +118,24 @@ public class HomePresenter implements Subscriber, HomeViewListener {
         filterDialog.dispose();
         List<Meal> filteredMeals = mealRepository.getByFilter(filterCriteria);
 
-        // If no results
-        if (filteredMeals.isEmpty()) {
-            JOptionPane.showMessageDialog(homeView, "No results found!", "Information", JOptionPane.INFORMATION_MESSAGE);
+        // If nothing was filtered
+        if (
+            (mealRepository.getAllByUserId(currentUserId).size() == filteredMeals.size() && filteredMeals.size() > 0) || 
+            filteredMeals.isEmpty()
+        ) {
+            JOptionPane.showMessageDialog(homeView, "Nothing was filtered!", "Information", JOptionPane.INFORMATION_MESSAGE);
             displayMeals(mealRepository.getAllByUserId(currentUserId));
             return;
         }
 
+        homeView.filterIndicator.setText("Filtered results");
         displayMeals(filteredMeals);
+    }
+
+    @Override
+    public void onClearClicked() {
+        homeView.filterIndicator.setText("");
+        displayMeals(mealRepository.getAllByUserId(currentUserId));
     }
 
     @Override

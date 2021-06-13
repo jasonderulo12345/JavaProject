@@ -7,4 +7,5 @@ public interface HomeViewListener{
     void onViewMealPressed();
     void onDeleteMealPressed();
     void onFilterClicked();
+    void onClearClicked();
 }
