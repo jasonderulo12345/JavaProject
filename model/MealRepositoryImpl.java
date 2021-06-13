@@ -176,8 +176,6 @@ public class MealRepositoryImpl implements MealRepository {
         }
 
         // Don't append, complete overwrite instead
-        // May cause performance issue tho but this is 
-        // a small app so it's fine 😩
         try (FileWriter fileWriter = new FileWriter(databasePath, false)) {
             fileWriter.write(stringBuilder.toString());
         }

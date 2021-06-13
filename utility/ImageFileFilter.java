@@ -4,7 +4,7 @@ import java.io.File;
 
 import javax.swing.filechooser.FileFilter;
 
-// Only accepts jpg, jpeg and png (gff doesn't count >.>)
+// Only accepts jpg, jpeg and png (gif doesn't count >.>)
 public class ImageFileFilter extends FileFilter {
 
     private static final String[] ACCEPTED_EXTENSIONS = { "jpg", "jpeg", "png" };

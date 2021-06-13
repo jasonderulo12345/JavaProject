@@ -7,8 +7,6 @@ import java.util.List;
 
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
-import javax.swing.table.TableColumn;
-import javax.swing.table.TableModel;
 
 import event.*;
 import event.ViewMealEnterEvent.Mode;
@@ -18,7 +16,6 @@ import view.HomeViewListener;
 import view.FilterDialog;
 import view.HomeView;
 
-// Setiap presenter mesti ada view dgn repository aka model
 public class HomePresenter implements Subscriber, HomeViewListener {
     private String currentUserId;
     private EventBus eventBus;

@@ -14,6 +14,7 @@ import org.jdatepicker.impl.JDatePickerImpl;
 import org.jdatepicker.impl.UtilDateModel;
 
 public class FilterDialog extends JDialog {
+    
     //Variable Declaration
     private JLabel nameLabel;
     private JLabel foodgroupLabel;

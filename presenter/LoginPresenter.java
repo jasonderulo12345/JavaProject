@@ -3,7 +3,6 @@ package presenter;
 import java.util.Arrays;
 import java.util.List;
 
-import javax.swing.JDialog;
 import javax.swing.JOptionPane;
 
 import event.*;
