@@ -4,6 +4,7 @@ import javax.swing.*;
 
 import java.awt.Dimension;
 import java.awt.Font;
+import java.awt.Image;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
@@ -57,10 +58,11 @@ public class LoginView extends JFrame {
             }
         });
 
+        // Setup logo
         logoLabel.setHorizontalAlignment(SwingConstants.CENTER);
-        logoLabel.setIcon(new ImageIcon("./resource/logo.png"));
-        logoLabel.setMaximumSize(new Dimension(256, 256));
-        logoLabel.setMinimumSize(new Dimension(256, 256));
+        Image image = new ImageIcon("./resource/logo.png").getImage();
+        ImageIcon imageIcon = new ImageIcon(image.getScaledInstance(115, 115, Image.SCALE_SMOOTH));
+        logoLabel.setIcon(imageIcon);
 
         GroupLayout layout = new GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
