@@ -1,5 +1,4 @@
 import model.*;
-import view.*;
 import presenter.*;
 
 import java.awt.EventQueue;

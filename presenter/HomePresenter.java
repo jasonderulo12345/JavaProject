@@ -134,6 +134,7 @@ public class HomePresenter implements Subscriber, HomeViewListener {
             filteredMeals.isEmpty()
         ) {
             JOptionPane.showMessageDialog(homeView, "Nothing was filtered!", "Information", JOptionPane.INFORMATION_MESSAGE);
+            homeView.filterIndicator.setText("");
             displayMeals(mealRepository.getAllByUserId(currentUserId));
             return;
         }
